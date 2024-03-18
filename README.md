@@ -1,6 +1,3 @@
-# angular-shake-AWSFeeded
-Angular shake e-commerce project fed by AWSLambdaFunctions
-
 # Description
 Angular shake e-commerce front end fed by AWSLambdaFunctions exposed by AWS API Gateway endpoint
 
