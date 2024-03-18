@@ -1,0 +1,93 @@
+<form [formGroup]="reactiveForm">
+  <div class="text-center mb-3">
+    <p>Sign in with:</p>
+
+    <button
+      disabled="true"
+      mdbRipple
+      type="button"
+      class="btn btn-success btn-floating mx-1 shadow-0"
+    >
+      <i class="fab fa-google"></i>
+    </button>
+
+    <button
+      disabled="true"
+      mdbRipple
+      type="button"
+      class="btn btn-success btn-floating mx-1 shadow-0"
+    >
+      <i class="fab fa-facebook-f"></i>
+    </button>
+
+    <button
+      disabled="true"
+      mdbRipple
+      type="button"
+      class="btn btn-success btn-floating mx-1 shadow-0"
+    >
+      <i class="fab fa-twitter"></i>
+    </button>
+
+    <button
+      disabled="true"
+      mdbRipple
+      type="button"
+      class="btn btn-success btn-floating mx-1 shadow-0"
+    >
+      <i class="fab fa-github"></i>
+    </button>
+  </div>
+
+  <p class="text-center">or:</p>
+
+  <!-- Email input -->
+  <mdb-form-control class="mb-4">
+    <input
+      mdbInput
+      type="email"
+      id="loginEmail"
+      class="form-control"
+      formControlName="username"
+    />
+    <label mdbLabel class="form-label" for="loginEmail">Username/Email</label>
+  </mdb-form-control>
+
+  <!-- Password input -->
+  <mdb-form-control class="mb-4">
+    <input
+      mdbInput
+      type="password"
+      id="loginPassword"
+      class="form-control"
+      formControlName="password"
+    />
+    <label mdbLabel class="form-label" for="loginPassword">Password</label>
+  </mdb-form-control>
+
+  <!-- 2 column grid layout -->
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-center">
+      <label class="form-check-label">
+        Oh.. no! I have forgotten the
+        <a [routerLink]="['/reset-password']"> password</a>
+      </label>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button
+    mdbRipple
+    type="submit"
+    class="btn btn-primary btn-block mb-4 shadow-0"
+    (click)="onLogin()"
+    [disabled]="!this.reactiveForm.valid"
+  >
+    Sign in
+  </button>
+
+  <!-- Register buttons -->
+  <div class="text-center">
+    <p>Not a member? <a [routerLink]="'/signup'">Register</a></p>
+  </div>
+</form>

@@ -1,0 +1,148 @@
+<div class="row justify-content-center mb-3">
+  <div class="col-md-12">
+    <div class="card shadow-0 border rounded-3">
+      <div class="card-body">
+        <div class="row g-0">
+          <div class="col-xl-3 col-md-4 d-flex justify-content-center">
+            <div
+              class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0"
+            >
+              <img [src]="product.imgUrl" class="w-100" />
+              <a href="#!">
+                <div class="hover-overlay">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(253, 253, 253, 0.15)"
+                  ></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-6 col-md-5 col-sm-7">
+            <h5>{{ product.name }}</h5>
+            <div class="d-flex flex-row">
+              <div class="text-warning mb-1 me-2">
+                <ng-container *ngFor="let i of product.getStar()">
+                  <i class="fa fa-star"></i>
+                </ng-container>
+                <ng-container *ngIf="product.getHalfStar()">
+                  <i class="fas fa-star-half-alt"></i
+                ></ng-container>
+                <span class="ms-1"> {{ product.rating }} </span>
+              </div>
+              <span class="text-muted">{{ product.numOrder }} orders</span>
+            </div>
+
+            <p class="text mb-4 mb-md-0">
+              {{ product.description }}
+            </p>
+          </div>
+
+          <div class="col-xl-3 col-md-3 col-sm-5">
+            <div class="d-flex flex-row align-items-center mb-1">
+              <ng-container
+                *ngIf="product.hasDiscount(); else noDiscountTemplate"
+              >
+                <h4 class="mb-1 me-1">
+                  {{ product.discountedPrice | currency : "$" }}
+                </h4>
+                <span class="text-danger"
+                  ><s>{{ product.originalPrice | currency : "$" }}</s></span
+                >
+              </ng-container>
+              <ng-template #noDiscountTemplate>
+                <h4 class="mb-1 me-1">
+                  {{ product.originalPrice | currency : "$" }}
+                </h4>
+              </ng-template>
+            </div>
+            <h6 class="text-success" *ngIf="product.hasFreeShipping()">
+              Free shipping
+            </h6>
+            <h6 class="text-warning" *ngIf="!product.hasFreeShipping()">
+              {{ product.shippingPrice | currency : "$" }} shipping cost
+            </h6>
+            <div class="mt-4">
+              <ng-container *ngIf="!isAdding; else editTemplate">
+                <button
+                  class="btn btn-success shadow-0"
+                  type="button"
+                  style="margin-right: 10px; width: 65px"
+                  (click)="onAdd()"
+                  [disabled]="!product.isAvailable()"
+                >
+                  <i class="fas fa-add"></i>
+                </button>
+                <ng-container *ngTemplateOutlet="infoButton"></ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Template Definition-->
+<ng-template #infoButton
+  ><button
+    class="btn btn-primary shadow-0"
+    type="button"
+    style="margin-right: 10px; width: 65px"
+    [routerLink]="['/product/', product.id]"
+  >
+    <i class="fas fa-info"></i></button
+></ng-template>
+<ng-template #editTemplate>
+  <button
+    class="btn btn-primary shadow-0"
+    type="button"
+    style="margin-right: 10px; width: 65px"
+    (click)="onClear()"
+  >
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <ng-container *ngTemplateOutlet="infoButton"></ng-container>
+  <div
+    class="btn-group shadow-0"
+    role="group"
+    aria-label="Basic example"
+    style="margin-top: 10px; margin-right: 10px"
+  >
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="plusQty()"
+      [disabled]="pendingQty >= product.qtyAvailable"
+    >
+      +
+    </button>
+    <input
+      type="text"
+      style="width: 40px"
+      maxlength="4"
+      readonly
+      [(ngModel)]="pendingQty"
+    />
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="lessQty()"
+      [disabled]="pendingQty == 1"
+    >
+      -
+    </button>
+  </div>
+  <button
+    class="btn btn-success shadow-0"
+    type="button"
+    style="margin-top: 10px; width: 140px"
+    (click)="onConfirm()"
+  >
+    Confirm <i class="fas fa-check"></i>
+  </button>
+</ng-template>

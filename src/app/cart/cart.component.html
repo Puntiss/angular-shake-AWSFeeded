@@ -1,0 +1,144 @@
+<section class="bg-light my-5">
+  <div class="container">
+    <div class="row">
+      <!-- Cart Column -->
+      <div class="col-lg-9">
+        <div class="card border shadow-0">
+          <div class="m-4">
+            <h4 class="card-title mb-4">
+              Your shopping cart
+              <ng-container *ngIf="!cartShakeList.length"
+                >is empty</ng-container
+              >
+            </h4>
+            <hr />
+
+            <ng-container *ngIf="cartShakeList.length">
+              <ng-container *ngIf="activatedRoute.snapshot.data['shakedata']">
+                <ng-container *ngFor="let cartElement of cartShakeList">
+                  <app-cart-product-list
+                    [cartElement]="cartElement"
+                    (removeShakeFromCart)="userService.removeFromCart($event)"
+                  ></app-cart-product-list>
+                  <hr /> </ng-container
+              ></ng-container>
+              <!-- Delivery Mode
+              <div class="pt-4 mx-4 mb-4">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="normalDerlivery"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault"
+                    ><i class="fas fa-truck text-muted fa-lg"></i> Normal
+                    Delivery: 1-2 weeks
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="expressDerlivery"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault"
+                    ><i class="fas fa-truck-fast text-muted fa-lg"></i> Express
+                    Delivery: 2-3 day
+                  </label>
+                </div>
+              </div>-->
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <!-- Cart Column -->
+      <!-- Right Column -->
+      <div class="col-lg-3">
+        <!-- Cupon
+        <div class="card mb-3 border shadow-0">
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label class="form-label">Have coupon?</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control border"
+                    name=""
+                    placeholder="Coupon code"
+                  />
+                  <button class="btn btn-light border">Apply</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>-->
+        <div class="card shadow-0 border">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2">{{ subTotal | currency : "$" }}</p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Discount:</p>
+              <p class="mb-2 text-success">-{{ discount | currency : "$" }}</p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Subtotal:</p>
+              <p class="mb-2">{{ subTotal - discount | currency : "$" }}</p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">TAX ({{ getTaxPercentage() | percent }}):</p>
+              <p class="mb-2">{{ tax | currency : "$" }}</p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total:</p>
+              <p class="mb-2 fw-bold">{{ total | currency : "$" }}</p>
+            </div>
+
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-success w-100 shadow-0 mb-2"
+                (click)="onMakeOrder()"
+                [disabled]="!cartShakeList.length"
+              >
+                Make Purchase
+              </button>
+              <button
+                class="btn btn-light w-100 border mt-2"
+                [routerLink]="['/home']"
+              >
+                Back to shop
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card shadow-0 border mt-4" *ngIf="lastOrders.length">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Last orders:</p>
+            </div>
+            <div
+              class="d-flex justify-content-between"
+              *ngFor="let order of lastOrders; index as i"
+            >
+              <div [style.font-size.px]="i != 0 ? 10 : null">
+                <p class="mb-2">{{ "#" + order.id }}</p>
+              </div>
+              <div [style.font-size.px]="i != 0 ? 10 : null">
+                <p class="mb-2 text-success">
+                  {{ order.total | currency : "$" }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Column -->
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+<div class="row gy-3 mb-4">
+  <div class="col-12 col-xl-6">
+    <div class="me-lg-5">
+      <div class="d-flex">
+        <img
+          [src]="product.imgUrl"
+          class="border rounded me-3"
+          style="width: 96px; height: 96px"
+        />
+        <div class="">
+          <a
+            href="#"
+            class="nav-link"
+            [routerLink]="['/product/', product.id]"
+            >{{ product.name }}</a
+          >
+          <p class="text-warning lh-1" *ngIf="qtySyncErrClient()">
+            {{ qtySyncErrClient() }} not in stock
+          </p>
+          <p style="font-size: 10px">
+            {{ product.description | slice : 0 : 150 }}...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <ng-container [ngTemplateOutlet]="editTemplate"></ng-container>
+  </div>
+  <div class="col-5 col-xl-2">
+    <!--justify-content-sm-center justify-content-md-start justify-content-lg-center justify-content-xl-end mb-2-->
+    <div>
+      <label class="h6">{{
+        product.discountedPrice * cartElement.qty | currency : "$"
+      }}</label>
+      <br />
+      <small class="text-muted text-nowrap"
+        >{{ product.discountedPrice | currency : "$" }} / per item<br />
+        <label *ngIf="!product.hasFreeShipping()" class="text-warning">
+          {{ product.shippingPrice | currency : "$" }} shipping cost</label
+        >
+      </small>
+    </div>
+  </div>
+  <div class="col-1 d-flex justify-content-end align-self-end">
+    <div class="float-md-end">
+      <i
+        class="fa-solid fa-trash text-danger icon-hover-danger"
+        (click)="removeShakeFromCart.emit(product.id)"
+      ></i>
+    </div>
+  </div>
+</div>
+
+<!-- Template Definition-->
+
+<ng-template #editTemplate>
+  <div
+    class="btn-group shadow-0"
+    role="group"
+    aria-label="Basic example"
+    style="margin-right: 10px"
+  >
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="plusQty()"
+      [disabled]="pendingQty >= product.qtyAvailable"
+    >
+      +
+    </button>
+    <input
+      type="text"
+      style="width: 40px"
+      maxlength="4"
+      readonly
+      [(ngModel)]="pendingQty"
+    />
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="lessQty()"
+      [disabled]="pendingQty == 1"
+    >
+      -
+    </button>
+  </div>
+  <button
+    *ngIf="isAdding"
+    class="btn btn-success shadow-0"
+    type="button"
+    style="margin-top: 10px; width: 65px; max-height: 36px; margin-right: 10px"
+    (click)="onConfirm()"
+  >
+    <i class="fas fa-check"></i>
+  </button>
+  <button
+    *ngIf="isAdding"
+    class="btn btn-primary shadow-0"
+    type="button"
+    style="margin-top: 10px; width: 65px; max-height: 36px"
+    (click)="onClear()"
+  >
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</ng-template>

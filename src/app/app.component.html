@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<app-alert></app-alert>
+<router-outlet />
+
+<div
+  class="modal fade show"
+  *ngIf="showDisclosure"
+  style="display: block; background: var(--shakeLoading)"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>Disclosure</b></h5>
+      </div>
+      <div class="modal-body">
+        <label>
+          Due to some cost and maintenance problems, this website was created
+          only to show a project on
+          <a href="https://github.com/puntiss" target="_blank">
+            GitHub
+            <i
+              class="fa-solid fa-arrow-up-right-from-square"
+              style="font-size: 12px"
+            ></i
+          ></a>
+          ,where the infostructure is explained. <br /><br />
+          <b class="text-danger">There aren't some features:</b>
+          <ul>
+            <!--li>Registration function (avoid DB overload)</li-->
+            <li>Social login integration</li>
+            <li>Payment function (secury issue)</li>
+            <li>
+              Quantity synchronization function or quantity should be re-added
+              every while
+            </li>
+          </ul>
+          <b class="text-success">Is possible though:</b>
+          <ul>
+            <li>Use website from PC or mobile phone</li>
+            <li>Register user</li>
+            <li>Login using registered users</li>
+            <!--li>Login using 2 different pre-defined users</li-->
+            <li>Search and filter between products pre-inserted product</li>
+            <li>
+              Add and manage product to cart (saved on localStorage to not
+              overload DB)
+            </li>
+            <!--li>Insert pre made discount code (CUPON) to reduce the cost</li-->
+            <li>Create a test order and see the last 5 orders made</li>
+          </ul></label
+        >
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success shadow-0"
+          (click)="showDisclosure = false"
+        >
+          Got It!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loadingManagerService.isLoading()" class="parent bg">
+  <div class="child">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

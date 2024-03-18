@@ -1,0 +1,159 @@
+<!-- content -->
+<section class="py-5">
+  <div class="container">
+    <div class="row gx-5">
+      <aside class="col-lg-6">
+        <div class="rounded-4 mb-3 d-flex justify-content-center">
+          <a
+            data-fslightbox="mygalley"
+            class="rounded-4"
+            target="_blank"
+            data-type="image"
+          >
+            <img
+              style="max-width: 100%; max-height: 50vh; margin: auto"
+              class="rounded-4 fit"
+              [src]="product.imgUrl"
+            />
+          </a>
+        </div>
+      </aside>
+      <main class="col-lg-6">
+        <div class="ps-lg-3">
+          <h4 class="title text-dark">
+            {{ product.name }}
+          </h4>
+          <div class="d-flex flex-row my-3">
+            <div class="text-warning mb-1 me-2">
+              <ng-container *ngFor="let i of product.getStar()">
+                <i class="fa fa-star"></i>
+              </ng-container>
+              <ng-container *ngIf="product.getHalfStar()">
+                <i class="fas fa-star-half-alt"></i
+              ></ng-container>
+              <span class="ms-1"> {{ product.rating }} </span>
+            </div>
+
+            <span class="text-muted">{{ product.numOrder }} orders</span>
+            <span class="text-success ms-2" *ngIf="product.isAvailable()"
+              >In stock</span
+            >
+            <span class="text-warning ms-2" *ngIf="!product.isAvailable()"
+              >Out of stock</span
+            >
+          </div>
+
+          <div class="mb-3">
+            <ng-container *ngIf="product.hasDiscount(); else noDiscountTemplate"
+              ><div>
+                <h4 class="h5">
+                  {{ product.discountedPrice | currency : "$" }}
+                </h4>
+                <span class="text-danger"
+                  ><s>{{ product.originalPrice | currency : "$" }}</s></span
+                >
+              </div>
+            </ng-container>
+            <ng-template #noDiscountTemplate>
+              <h4 class="h5">
+                {{ product.originalPrice | currency : "$" }}
+              </h4>
+            </ng-template>
+            <span class="text-muted">/per item</span>
+          </div>
+
+          <p>
+            {{ product.description }}
+          </p>
+
+          <hr />
+
+          <div class="row mb-4">
+            <!-- col.// -->
+            <div class="col-12">
+              <ng-container *ngIf="!isAdding; else editTemplate">
+                <button
+                  class="btn btn-success shadow-0"
+                  type="button"
+                  style="margin-right: 10px; width: 65px"
+                  (click)="onAdd()"
+                  [disabled]="!product.isAvailable()"
+                >
+                  <i class="fas fa-add"></i>
+                </button>
+                <ng-container *ngTemplateOutlet="buyNowButton"></ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- Template Definition-->
+<ng-template #buyNowButton
+  ><button
+    class="btn btn-primary shadow-0"
+    type="button"
+    style="margin-right: 10px; width: 150px"
+    [disabled]="!product.isAvailable()"
+    (click)="onBuyNow()"
+  >
+    Buy Now
+  </button></ng-template
+>
+<ng-template #editTemplate>
+  <button
+    class="btn btn-primary shadow-0"
+    type="button"
+    style="margin-right: 10px; width: 65px"
+    (click)="onClear()"
+  >
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <ng-container *ngTemplateOutlet="buyNowButton"></ng-container><br />
+  <div
+    class="btn-group shadow-0"
+    role="group"
+    aria-label="Basic example"
+    style="margin-top: 10px; margin-right: 10px"
+  >
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="plusQty()"
+      [disabled]="pendingQty >= product.qtyAvailable"
+    >
+      +
+    </button>
+    <input
+      type="text"
+      style="width: 40px"
+      maxlength="4"
+      readonly
+      [(ngModel)]="pendingQty"
+    />
+    <button
+      type="button"
+      class="btn btn-primary shadow-0"
+      data-mdb-ripple-init
+      style="width: 50px"
+      (click)="lessQty()"
+      [disabled]="pendingQty == 1"
+    >
+      -
+    </button>
+  </div>
+  <br />
+  <button
+    class="btn btn-success shadow-0"
+    type="button"
+    style="margin-top: 10px; width: 140px"
+    (click)="onConfirm()"
+  >
+    Confirm <i class="fas fa-check"></i>
+  </button>
+</ng-template>

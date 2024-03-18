@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files*/
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
+@import '@fortawesome/fontawesome-free/scss/regular.scss';
+@import '@fortawesome/fontawesome-free/scss/brands.scss';
+
+@import 'mdb-angular-ui-kit/assets/scss/mdb.scss';
+
+:root {
+  --shakePink1:#ffafcc;
+  --shakePink2: #ffc8dd;
+
+  --shakeBlue1: #a2d2ff;
+  --shakeBlue2: #bde0fe;
+
+  --shakeGray: #ced4da;
+  --shakeLoading: #ced4dacc;
+}
+
+
+.btn-success {
+  --mdb-btn-bg: var(--shakePink1);
+  --mdb-btn-hover-bg: var(--shakePink2);
+  --mdb-btn-focus-bg: var(--shakePink2);
+  --mdb-btn-active-bg: var(--shakePink1);
+ }
+
+ .btn-outline-success{
+  --mdb-btn-color: var(--shakePink1);
+  --mdb-btn-hover-color: var(--shakePink1);
+  --mdb-btn-focus-color:var(--shakePink1);
+  --mdb-btn-active-color: var(--shakePink1);
+  --mdb-btn-border-color: var(--shakePink1);
+  --mdb-btn-focus-border-color: var(--shakePink2);
+  --mdb-btn-hover-border-color: var(--shakePink2);
+ }
+
+.btn-primary {
+  --mdb-btn-bg: var(--shakeBlue1);
+  --mdb-btn-hover-bg: var(--shakeBlue2);
+  --mdb-btn-focus-bg: var(--shakeBlue2);
+  --mdb-btn-active-bg: var(--shakeBlue1);
+}
+
+.btn-outline-primary{
+  --mdb-btn-color: var(--shakeBlue1);
+  --mdb-btn-hover-color: var(--shakeBlue1);
+  --mdb-btn-focus-color:var(--shakeBlue1);
+  --mdb-btn-active-color: var(--shakeBlue1);
+  --mdb-btn-border-color: var(--shakeBlue1);
+  --mdb-btn-focus-border-color: var(--shakeBlue2);
+  --mdb-btn-hover-border-color: var(--shakeBlue2);
+}
+
+.text-primary {
+  color: var(--shakeBlue1) !important;
+}
+
+.btn-primary:disabled, .btn-success:disabled{
+  background: var(--shakeGray);
+}
+
+.btn-group > input{
+  width: 40px;
+  border: none;
+  outline: none;
+  /* user-select: none; */
+  text-align: center;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--shakeBlue1);
+  border-color: var(--shakeBlue1);
+}
+
+
