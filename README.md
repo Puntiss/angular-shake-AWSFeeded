@@ -38,10 +38,10 @@ If you want to try live code, visit the [website](https://angular-shake-shop.s3.
 
 - Navigate to `http://localhost:4200/` in your browser to see the result:
 
+![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/text%20filter.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/user%20not%20found.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/user%20saved.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/login%20done.JPG)
-![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/text%20filter.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/info%20page.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/filter%20price%20and%20qty%20home.JPG)
 ![](https://github.com/Puntiss/angular-shake-AWSFeeded/blob/master/screenshot/cart.JPG)
